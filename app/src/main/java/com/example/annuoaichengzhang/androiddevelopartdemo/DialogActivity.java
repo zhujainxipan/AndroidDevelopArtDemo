@@ -9,8 +9,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +87,28 @@ public class DialogActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.dialogfragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog7();
+            }
+        });
+
     }
+
+    private void dialog7() {
+        DialogFragment newFragment = MyAlertDialogFragment.newInstance(3);
+        newFragment.show(getSupportFragmentManager(), "Title");
+    }
+
+    public void doPositiveClick() {
+        Log.i("FragmentAlertDialog", "左键按下");
+    }
+
+    public void doNegativeClick() {
+        Log.i("FragmentAlertDialog", "右键按下");
+    }
+
 
 
     /**
