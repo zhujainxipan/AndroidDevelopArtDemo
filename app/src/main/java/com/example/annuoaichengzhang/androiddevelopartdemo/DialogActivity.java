@@ -1,9 +1,11 @@
 package com.example.annuoaichengzhang.androiddevelopartdemo;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,8 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 public class DialogActivity extends AppCompatActivity {
+
+    private View dialog4;
+    private View mDialog1;
+    private boolean isExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,8 @@ public class DialogActivity extends AppCompatActivity {
         });
 
 
-        findViewById(R.id.dialog1).setOnClickListener(new View.OnClickListener() {
+        mDialog1 = findViewById(R.id.dialog1);
+        mDialog1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1();
@@ -55,7 +63,8 @@ public class DialogActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.dialog4).setOnClickListener(new View.OnClickListener() {
+        dialog4 = findViewById(R.id.dialog4);
+        dialog4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog4();
@@ -66,6 +75,13 @@ public class DialogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog5();
+            }
+        });
+
+        findViewById(R.id.popupwindow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog6();
             }
         });
 
@@ -197,6 +213,44 @@ public class DialogActivity extends AppCompatActivity {
      */
     private int getActionBarHeight() {
         return getSupportActionBar().getHeight();
+    }
+
+
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void dialog6() {
+        View view = LayoutInflater.from(this).inflate(R.layout.items, null);
+        final PopupWindow popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT, true);
+
+        int x = 0;
+        int y = getStatusBarHeight() + getActionBarHeight();
+
+        popupWindow.showAsDropDown(mDialog1, Gravity.TOP, x, y);
+
+        //pw对话框设置半透明背景。原理：pw显示时，改变整个窗口的透明度为0.7，当pw消失时，透明度为1
+        final WindowManager.LayoutParams params = DialogActivity.this.getWindow().getAttributes();
+        params.alpha = 0.7f;
+        DialogActivity.this.getWindow().setAttributes(params);
+
+        view.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isExit = true;
+                popupWindow.dismiss();
+                params.alpha = 1f;
+                DialogActivity.this.getWindow().setAttributes(params);
+            }
+        });
+
+        //pw对话框消失监听事件
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params.alpha = 1f;
+                DialogActivity.this.getWindow().setAttributes(params);
+            }
+        });
     }
 
 }
