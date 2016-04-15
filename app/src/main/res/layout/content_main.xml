@@ -45,5 +45,14 @@
         android:layout_below="@id/btn_3"
         />
 
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="内存泄露分析工具MAT"
+        android:layout_below="@id/btn_4"
+        />
+
+
 
 </RelativeLayout>
