@@ -183,7 +183,7 @@ public class DialogActivity extends AppCompatActivity {
         dialog.getWindow().findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog1();
             }
         });
     }
