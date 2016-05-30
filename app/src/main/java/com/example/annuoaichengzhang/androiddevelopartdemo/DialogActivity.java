@@ -177,13 +177,14 @@ public class DialogActivity extends AppCompatActivity {
     private void dialog4() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.items, null);
+        final View tv = view.findViewById(R.id.tv);
         final AlertDialog dialog = builder.create();
         dialog.setView(view);
         dialog.show();
         dialog.getWindow().findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog1();
+                new FreshDialog(DialogActivity.this).showDialog(tv);
             }
         });
     }
