@@ -184,7 +184,7 @@ public class DialogActivity extends AppCompatActivity {
         dialog.getWindow().findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FreshDialog(DialogActivity.this).showDialog(tv);
+                dialog6();
             }
         });
     }
